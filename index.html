@@ -15,33 +15,30 @@
         <!-- Inner Wellness Dashboard Widget -->
         <div class="widget-box" id="widgetBox">
             
-            <!-- Top Section: Title & Day/Date + Larger Bold Time -->
+            <!-- Top Section: Title, Date, Bold Time & Golden Hour Badge -->
             <div class="header-section">
                 <div class="top-sprig">🌿</div>
                 <div class="widget-title">Daily Rhythm</div>
                 <div class="datetime-display" id="datetimeDisplay">Wednesday · August 12</div>
-                <div class="time-display-bold" id="timeDisplay">6:23 PM</div>
-            </div>
-
-            <!-- Curved Sun -> Moon Progression Bar -->
-            <div class="progression-container">
-                <span class="progression-icon left-icon">☀️</span>
-                <div class="progression-track-wrapper">
-                    <svg class="curved-track-svg" viewBox="0 0 300 24" preserveAspectRatio="none">
-                        <path d="M 0,18 Q 150,2 300,18" fill="none" stroke="rgba(248, 244, 236, 0.28)" stroke-width="3"/>
-                    </svg>
-                    <div class="progression-thumb" id="progressionThumb"></div>
+                <div class="time-display-bold" id="timeDisplay">6:27 PM</div>
+                <div class="time-period-badge" id="timePeriodBadge">
+                    🌅 GOLDEN HOUR
                 </div>
-                <span class="progression-icon right-icon">🌙</span>
             </div>
 
-            <!-- Today's Intention & Button (Larger) -->
-            <div class="intention-section">
-                <div class="intention-label">TODAY'S INTENTION</div>
-                <div class="intention-text" id="intentionText">“Be where your feet are.”</div>
-                <button class="shuffle-btn" id="shuffleBtn" onclick="shuffleIntention()">
-                    ↻ NEW INTENTION
-                </button>
+            <!-- Sun -> Moon Progression Bar & Hourly Message -->
+            <div class="progression-block">
+                <div class="progression-container">
+                    <span class="progression-icon left-icon">☀️</span>
+                    <div class="progression-track-wrapper">
+                        <svg class="curved-track-svg" viewBox="0 0 300 24" preserveAspectRatio="none">
+                            <path d="M 0,18 Q 150,2 300,18" fill="none" stroke="rgba(248, 244, 236, 0.28)" stroke-width="3"/>
+                        </svg>
+                        <div class="progression-thumb" id="progressionThumb"></div>
+                    </div>
+                    <span class="progression-icon right-icon">🌙</span>
+                </div>
+                <div class="hourly-message" id="hourlyMessage">“The day is changing. You can change pace with it.”</div>
             </div>
 
             <!-- Divider Ornament -->
@@ -51,12 +48,13 @@
                 <div class="line"></div>
             </div>
 
-            <!-- Bottom Section: Time Period Badge & Hourly Message -->
-            <div class="bottom-info-section">
-                <div class="time-period-badge" id="timePeriodBadge">
-                    🌅 Golden Hour
-                </div>
-                <div class="hourly-message" id="hourlyMessage">“The day is changing. You can change pace with it.”</div>
+            <!-- Bottom Section: Today's Intention & Button -->
+            <div class="intention-section">
+                <div class="intention-label">TODAY'S INTENTION</div>
+                <div class="intention-text" id="intentionText">“Be where your feet are.”</div>
+                <button class="shuffle-btn" id="shuffleBtn" onclick="shuffleIntention()">
+                    ↻ NEW INTENTION
+                </button>
             </div>
 
         </div>
@@ -203,7 +201,7 @@
             const optionsDate = { weekday: 'long', month: 'long', day: 'numeric' };
             document.getElementById('datetimeDisplay').innerText = now.toLocaleDateString('en-US', optionsDate).replace(',', ' ·');
             
-            // Bold Time format
+            // Bold Time format (64px target)
             let h = hours;
             const ampm = h >= 12 ? 'PM' : 'AM';
             h = h % 12;
@@ -216,15 +214,15 @@
 
             // Time Period
             let periodText = "";
-            if (hours >= 5 && hours < 7) periodText = "🌅 Early Morning";
-            else if (hours >= 7 && hours < 10) periodText = "☀️ Morning";
-            else if (hours >= 10 && hours < 13) periodText = "☀️ Day";
-            else if (hours >= 13 && hours < 15) periodText = "🌤️ Afternoon";
-            else if (hours >= 15 && hours < 17) periodText = "🌤️ Late Afternoon";
-            else if (hours >= 17 && hours < 19) periodText = "🌅 Golden Hour";
-            else if (hours >= 19 && hours < 22) periodText = "🌙 Evening";
-            else if (hours >= 22 && hours < 24) periodText = "🌙 Wind Down";
-            else periodText = "🌌 Night";
+            if (hours >= 5 && hours < 7) periodText = "🌅 EARLY MORNING";
+            else if (hours >= 7 && hours < 10) periodText = "☀️ MORNING";
+            else if (hours >= 10 && hours < 13) periodText = "☀️ DAY";
+            else if (hours >= 13 && hours < 15) periodText = "🌤️ AFTERNOON";
+            else if (hours >= 15 && hours < 17) periodText = "🌤️ LATE AFTERNOON";
+            else if (hours >= 17 && hours < 19) periodText = "🌅 GOLDEN HOUR";
+            else if (hours >= 19 && hours < 22) periodText = "🌙 EVENING";
+            else if (hours >= 22 && hours < 24) periodText = "🌙 WIND DOWN";
+            else periodText = "🌌 NIGHT";
             
             document.getElementById('timePeriodBadge').innerText = periodText;
 
