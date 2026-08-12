@@ -1,0 +1,283 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>🌿 Daily Rhythm</title>
+    <!-- Elegant editorial typography -->
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400;1,500&family=Plus+Jakarta+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body class="theme-night" id="bodyTheme">
+
+    <!-- Framed Background Container (Matches your previous dimensions and sharp outer edges) -->
+    <div class="card-frame">
+        
+        <!-- Inner Wellness Dashboard Widget -->
+        <div class="widget-box" id="widgetBox">
+            
+            <!-- Header Title -->
+            <div class="header-top">
+                <span class="widget-title">🌿 DAILY RHYTHM</span>
+                <div class="datetime-display" id="datetimeDisplay">Tuesday · August 11</div>
+            </div>
+
+            <!-- Main Clock & Hourly Message Section -->
+            <div class="clock-section">
+                <div class="time-display" id="timeDisplay">8:42 PM</div>
+                <div class="hourly-message" id="hourlyMessage">“You don't have to rush into the day. Take a breath and arrive in it.”</div>
+            </div>
+
+            <!-- Sun -> Moon Progression Bar -->
+            <div class="progression-container">
+                <div class="progression-track">
+                    <div class="progression-fill" id="progressionFill"></div>
+                    <div class="progression-thumb" id="progressionThumb">☀️</div>
+                </div>
+            </div>
+
+            <!-- Time Period Badge -->
+            <div class="time-period-badge" id="timePeriodBadge">
+                🌙 Evening
+            </div>
+
+            <!-- Divider Ornament -->
+            <div class="ornament-row">
+                <div class="line"></div>
+                <div class="leaf">🌿</div>
+                <div class="line"></div>
+            </div>
+
+            <!-- Today's Intention Section -->
+            <div class="intention-section">
+                <div class="intention-label">Today's Intention</div>
+                <div class="intention-text" id="intentionText">“Be where your feet are.”</div>
+                <button class="shuffle-btn" id="shuffleBtn" onclick="shuffleIntention()">
+                    ↻ New Intention
+                </button>
+            </div>
+
+        </div>
+    </div>
+
+    <script>
+        // 100 Intention Library
+        const intentions = [
+            "“Be where your feet are.”",
+            "“Move through today with intention.”",
+            "“Choose presence over pressure.”",
+            "“Let today unfold one moment at a time.”",
+            "“Give your attention to what truly matters.”",
+            "“Make space for what feels good.”",
+            "“Move gently, but keep moving.”",
+            "“Protect your peace today.”",
+            "“Let enough be enough.”",
+            "“Be patient with your own process.”",
+            "“Choose progress over perfection.”",
+            "“Speak to yourself with kindness.”",
+            "“Make today feel like yours.”",
+            "“Take things at a human pace.”",
+            "“Notice the little things.”",
+            "“Let yourself enjoy the day.”",
+            "“Do less, but do it with presence.”",
+            "“Give yourself room to breathe.”",
+            "“Trust yourself a little more today.”",
+            "“Let go of what isn't yours to carry.”",
+            "“Create before you consume.”",
+            "“Make room for quiet.”",
+            "“Follow what feels meaningful.”",
+            "“Choose calm where you can.”",
+            "“Let your energy have boundaries.”",
+            "“Take care of the person you are becoming.”",
+            "“Be curious instead of critical.”",
+            "“Return to what grounds you.”",
+            "“Make one small thing better.”",
+            "“Let your pace be your own.”",
+            "“Choose clarity over urgency.”",
+            "“Give yourself permission to pause.”",
+            "“Notice what your mind is asking for.”",
+            "“Let today be imperfect and beautiful.”",
+            "“Keep your promises to yourself.”",
+            "“Make time for something that fills you up.”",
+            "“Be intentional with your energy.”",
+            "“Let yourself begin again.”",
+            "“Don't rush a moment that deserves to be felt.”",
+            "“Choose what deserves your attention.”",
+            "“Make peace with unfinished things.”",
+            "“Stay close to what matters.”",
+            "“Give yourself the same grace you give others.”",
+            "“Let rest be part of the rhythm.”",
+            "“Take the next right step.”",
+            "“Make today lighter where you can.”",
+            "“Listen before you react.”",
+            "“Leave some room for spontaneity.”",
+            "“Notice how far you've already come.”",
+            "“Let your mind settle before you decide.”",
+            "“Choose softness without losing strength.”",
+            "“Spend your energy intentionally.”",
+            "“Let the unnecessary wait.”",
+            "“Make ordinary moments feel special.”",
+            "“Stay present for your actual life.”",
+            "“Take care of your inner world.”",
+            "“Let yourself slow down.”",
+            "“Choose what nourishes you.”",
+            "“Be honest about what you need.”",
+            "“Give today your full attention.”",
+            "“Make space for something beautiful.”",
+            "“Release the need to do everything.”",
+            "“Let your actions reflect what you value.”",
+            "“Choose peace over proving a point.”",
+            "“Start where you are.”",
+            "“Give yourself permission to change direction.”",
+            "“Let small steps count.”",
+            "“Keep your world spacious.”",
+            "“Notice before you judge.”",
+            "“Let yourself have a good day.”",
+            "“Choose connection over distraction.”",
+            "“Make room for wonder.”",
+            "“Trust that slow growth is still growth.”",
+            "“Give your future self something to thank you for.”",
+            "“Let today be simple.”",
+            "“Take a breath before the next thing.”",
+            "“Be deliberate about what you carry forward.”",
+            "“Allow yourself to receive.”",
+            "“Let your attention be a form of self-care.”",
+            "“Choose what makes you feel more like yourself.”",
+            "“Stay open to small joys.”",
+            "“Give yourself a fresh start.”",
+            "“Let your day have both purpose and play.”",
+            "“Do what matters, then let yourself rest.”",
+            "“Make peace with your own pace.”",
+            "“Be gentle with the parts of you still growing.”",
+            "“Choose intention over autopilot.”",
+            "“Let your priorities guide your day.”",
+            "“Notice what is already enough.”",
+            "“Create a little more space in your day.”",
+            "“Let yourself be present without performing.”",
+            "“Choose patience when things feel slow.”",
+            "“Make your wellbeing part of the plan.”",
+            "“Let go of one thing you don't need today.”",
+            "“Give yourself something to look forward to.”",
+            "“Stay grounded in what is real.”",
+            "“Let today be a quiet act of self-respect.”",
+            "“Choose the energy you want to bring into the room.”",
+            "“End the day knowing you showed up.”",
+            "“You are allowed to take your time.”"
+        ];
+
+        // Hourly Messages Map
+        const hourlyMessages = {
+            0: "“The day is over. Nothing needs to be solved right now. Rest.”",
+            1: "“Let tomorrow belong to tomorrow. For now, simply be here.”",
+            2: "“The world can wait. Give your mind permission to become quiet.”",
+            3: "“You don't need answers tonight. You need rest.”",
+            4: "“Even the longest night eventually gives way to morning. Be gentle with yourself.”",
+            5: "“The world is still quiet. Give yourself permission to begin slowly.”",
+            6: "“A new day doesn't ask you to have everything figured out. Just begin.”",
+            7: "“Start gently. The way you begin can shape the way you move through the day.”",
+            8: "“You don't have to rush into the day. Take a breath and arrive in it.”",
+            9: "“Choose what deserves your attention today — and let the rest wait.”",
+            10: "“Keep going, but remember that progress doesn't have to feel hurried.”",
+            11: "“You are allowed to pause without falling behind.”",
+            12: "“Halfway through the day. Take a breath before you take on what's next.”",
+            13: "“You don't need to be productive every minute to have a meaningful day.”",
+            14: "“Drink some water. Unclench your jaw. Take a breath. Continue.”",
+            15: "“Not everything needs your energy. Spend it on what matters.”",
+            16: "“You're allowed to slow down as the day begins to soften.”",
+            17: "“Let the workday end without carrying every thought home with you.”",
+            18: "“The day is changing. You can change pace with it.”",
+            19: "“Come back to yourself. The evening doesn't need to be productive.”",
+            20: "“You don't have to do it all today. Some things can wait until tomorrow.”",
+            21: "“Begin letting the day go. You have done enough for today.”",
+            22: "“Make the rest of tonight gentle. Your mind deserves somewhere quiet to land.”",
+            23: "“Close the day with kindness, not a list of everything you didn't finish.”"
+        };
+
+        function updateWidget() {
+            const now = new Date();
+            const hours = now.getHours();
+            const minutes = now.getMinutes();
+            const seconds = now.getSeconds();
+
+            // 1. Real-time Date format (e.g. Tuesday · August 11)
+            const optionsDate = { weekday: 'long', month: 'long', day: 'numeric' };
+            document.getElementById('datetimeDisplay').innerText = now.toLocaleDateString('en-US', optionsDate).replace(',', ' ·');
+
+            // 2. Real-time 12-hour Clock format (e.g. 8:42 PM)
+            let h = hours;
+            const ampm = h >= 12 ? 'PM' : 'AM';
+            h = h % 12;
+            h = h ? h : 12;
+            const m = minutes < 10 ? '0' + minutes : minutes;
+            document.getElementById('timeDisplay').innerText = `${h}:${m} ${ampm}`;
+
+            // 3. Hourly Message
+            document.getElementById('hourlyMessage').innerText = hourlyMessages[hours];
+
+            // 4. Time Period & Badge
+            let periodText = "";
+            let atmosphericTheme = "";
+
+            if (hours >= 5 && hours < 7) {
+                periodText = "🌅 Early Morning";
+                atmosphericTheme = "theme-early-morning";
+            } else if (hours >= 7 && hours < 10) {
+                periodText = "☀️ Morning";
+                atmosphericTheme = "theme-morning";
+            } else if (hours >= 10 && hours < 13) {
+                periodText = "☀️ Day";
+                atmosphericTheme = "theme-day";
+            } else if (hours >= 13 && hours < 15) {
+                periodText = "🌤️ Afternoon";
+                atmosphericTheme = "theme-afternoon";
+            } else if (hours >= 15 && hours < 17) {
+                periodText = "🌤️ Late Afternoon";
+                atmosphericTheme = "theme-afternoon";
+            } else if (hours >= 17 && hours < 19) {
+                periodText = "🌅 Golden Hour";
+                atmosphericTheme = "theme-golden-hour";
+            } else if (hours >= 19 && hours < 22) {
+                periodText = "🌙 Evening";
+                atmosphericTheme = "theme-evening";
+            } else if (hours >= 22 && hours < 24) {
+                periodText = "🌙 Wind Down";
+                atmosphericTheme = "theme-wind-down";
+            } else {
+                periodText = "🌌 Night";
+                atmosphericTheme = "theme-night";
+            }
+            document.getElementById('timePeriodBadge').innerText = periodText;
+            document.getElementById('widgetBox').className = `widget-box ${atmosphericTheme}`;
+
+            // 5. Sun -> Moon Progression Calculation (0% to 100% across 24 hours)
+            const totalSecondsToday = (hours * 3600) + (minutes * 60) + seconds;
+            const percentProgress = (totalSecondsToday / 86400) * 100;
+            document.getElementById('progressionFill').style.width = `${percentProgress}%`;
+            
+            const thumb = document.getElementById('progressionThumb');
+            thumb.style.left = `${percentProgress}%`;
+
+            // Change icon dynamically based on time of day
+            if (hours >= 6 && hours < 9) {
+                thumb.innerText = "🌅";
+            } else if (hours >= 9 && hours < 17) {
+                thumb.innerText = "☀️";
+            } else if (hours >= 17 && hours < 20) {
+                thumb.innerText = "🌇";
+            } else {
+                thumb.innerText = "🌙";
+            }
+        }
+
+        // Shuffle Intention Button Function
+        function shuffleIntention() {
+            const randomIndex = Math.floor(Math.random() * intentions.length);
+            document.getElementById('intentionText').innerText = intentions[randomIndex];
+        }
+
+        // Run immediately and update every second for live clock accuracy
+        updateWidget();
+        setInterval(updateWidget, 1000);
+    </script>
+</body>
+</html>
