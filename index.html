@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>🌿 Daily Rhythm</title>
-    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500&family=Plus+Jakarta+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500&family=Plus+Jakarta+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="style.css">
 </head>
 <body id="bodyTheme">
@@ -15,31 +15,33 @@
         <!-- Inner Wellness Dashboard Widget -->
         <div class="widget-box" id="widgetBox">
             
-            <!-- Top Section: Botanical Sprig, Bold Title, Date & Clock -->
+            <!-- Top Section: Title & Day/Date + Bold Time -->
             <div class="header-section">
                 <div class="top-sprig">🌿</div>
                 <div class="widget-title">Daily Rhythm</div>
-                <div class="datetime-display" id="datetimeDisplay">Tuesday · August 11 · 8:42 PM</div>
+                <div class="datetime-display" id="datetimeDisplay">Wednesday · August 12</div>
+                <div class="time-display-bold" id="timeDisplay">6:16 PM</div>
             </div>
 
-            <!-- Time Period Badge -->
-            <div class="time-period-badge" id="timePeriodBadge">
-                🌙 Evening
-            </div>
-
-            <!-- Hourly Message -->
-            <div class="hourly-message" id="hourlyMessage">“You don't have to rush into the day. Take a breath and arrive in it.”</div>
-
-            <!-- Curved Sun -> Moon Progression Bar -->
+            <!-- Curved Sun -> Moon Progression Bar (Thicker) -->
             <div class="progression-container">
                 <span class="progression-icon left-icon">☀️</span>
                 <div class="progression-track-wrapper">
                     <svg class="curved-track-svg" viewBox="0 0 300 24" preserveAspectRatio="none">
-                        <path id="curvePath" d="M 0,18 Q 150,2 300,18" fill="none" stroke="rgba(248, 244, 236, 0.2)" stroke-width="2"/>
+                        <path d="M 0,18 Q 150,2 300,18" fill="none" stroke="rgba(248, 244, 236, 0.28)" stroke-width="3"/>
                     </svg>
                     <div class="progression-thumb" id="progressionThumb"></div>
                 </div>
                 <span class="progression-icon right-icon">🌙</span>
+            </div>
+
+            <!-- Today's Intention & Button -->
+            <div class="intention-section">
+                <div class="intention-label">TODAY'S INTENTION</div>
+                <div class="intention-text" id="intentionText">“Be where your feet are.”</div>
+                <button class="shuffle-btn" id="shuffleBtn" onclick="shuffleIntention()">
+                    ↻ NEW INTENTION
+                </button>
             </div>
 
             <!-- Divider Ornament -->
@@ -49,13 +51,12 @@
                 <div class="line"></div>
             </div>
 
-            <!-- Today's Intention Section -->
-            <div class="intention-section">
-                <div class="intention-label">TODAY'S INTENTION</div>
-                <div class="intention-text" id="intentionText">“Be where your feet are.”</div>
-                <button class="shuffle-btn" id="shuffleBtn" onclick="shuffleIntention()">
-                    ↻ New Intention
-                </button>
+            <!-- Bottom Section: Time Period Badge & Hourly Message -->
+            <div class="bottom-info-section">
+                <div class="time-period-badge" id="timePeriodBadge">
+                    🌅 Golden Hour
+                </div>
+                <div class="hourly-message" id="hourlyMessage">“The day is changing. You can change pace with it.”</div>
             </div>
 
         </div>
@@ -198,17 +199,19 @@
             const minutes = now.getMinutes();
             const seconds = now.getSeconds();
 
-            // Date & Clock formatting
+            // Day & Date formatting
             const optionsDate = { weekday: 'long', month: 'long', day: 'numeric' };
-            const dateStr = now.toLocaleDateString('en-US', optionsDate).replace(',', ' ·');
+            document.getElementById('datetimeDisplay').innerText = now.toLocaleDateString('en-US', optionsDate).replace(',', ' ·');
             
+            // Bold Time format
             let h = hours;
             const ampm = h >= 12 ? 'PM' : 'AM';
             h = h % 12;
             h = h ? h : 12;
             const m = minutes < 10 ? '0' + minutes : minutes;
-            
-            document.getElementById('datetimeDisplay').innerText = `${dateStr} · ${h}:${m} ${ampm}`;
+            document.getElementById('timeDisplay').innerText = `${h}:${m} ${ampm}`;
+
+            // Hourly Message
             document.getElementById('hourlyMessage').innerText = hourlyMessages[hours];
 
             // Time Period
