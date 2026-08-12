@@ -4,41 +4,42 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>🌿 Daily Rhythm</title>
-    <!-- Elegant editorial typography -->
-    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400;1,500&family=Plus+Jakarta+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500&family=Plus+Jakarta+Sans:wght@300;400;500&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="style.css">
 </head>
-<body class="theme-night" id="bodyTheme">
+<body id="bodyTheme">
 
-    <!-- Framed Background Container (Matches your previous dimensions and sharp outer edges) -->
+    <!-- Framed Background Container -->
     <div class="card-frame">
         
         <!-- Inner Wellness Dashboard Widget -->
         <div class="widget-box" id="widgetBox">
             
-            <!-- Header Title -->
-            <div class="header-top">
-                <span class="widget-title">🌿 DAILY RHYTHM</span>
-                <div class="datetime-display" id="datetimeDisplay">Tuesday · August 11</div>
-            </div>
-
-            <!-- Main Clock & Hourly Message Section -->
-            <div class="clock-section">
-                <div class="time-display" id="timeDisplay">8:42 PM</div>
-                <div class="hourly-message" id="hourlyMessage">“You don't have to rush into the day. Take a breath and arrive in it.”</div>
-            </div>
-
-            <!-- Sun -> Moon Progression Bar -->
-            <div class="progression-container">
-                <div class="progression-track">
-                    <div class="progression-fill" id="progressionFill"></div>
-                    <div class="progression-thumb" id="progressionThumb">☀️</div>
-                </div>
+            <!-- Top Section: Botanical Sprig, Bold Title, Date & Clock -->
+            <div class="header-section">
+                <div class="top-sprig">🌿</div>
+                <div class="widget-title">Daily Rhythm</div>
+                <div class="datetime-display" id="datetimeDisplay">Tuesday · August 11 · 8:42 PM</div>
             </div>
 
             <!-- Time Period Badge -->
             <div class="time-period-badge" id="timePeriodBadge">
                 🌙 Evening
+            </div>
+
+            <!-- Hourly Message -->
+            <div class="hourly-message" id="hourlyMessage">“You don't have to rush into the day. Take a breath and arrive in it.”</div>
+
+            <!-- Curved Sun -> Moon Progression Bar -->
+            <div class="progression-container">
+                <span class="progression-icon left-icon">☀️</span>
+                <div class="progression-track-wrapper">
+                    <svg class="curved-track-svg" viewBox="0 0 300 24" preserveAspectRatio="none">
+                        <path id="curvePath" d="M 0,18 Q 150,2 300,18" fill="none" stroke="rgba(248, 244, 236, 0.2)" stroke-width="2"/>
+                    </svg>
+                    <div class="progression-thumb" id="progressionThumb"></div>
+                </div>
+                <span class="progression-icon right-icon">🌙</span>
             </div>
 
             <!-- Divider Ornament -->
@@ -50,7 +51,7 @@
 
             <!-- Today's Intention Section -->
             <div class="intention-section">
-                <div class="intention-label">Today's Intention</div>
+                <div class="intention-label">TODAY'S INTENTION</div>
                 <div class="intention-text" id="intentionText">“Be where your feet are.”</div>
                 <button class="shuffle-btn" id="shuffleBtn" onclick="shuffleIntention()">
                     ↻ New Intention
@@ -61,7 +62,6 @@
     </div>
 
     <script>
-        // 100 Intention Library
         const intentions = [
             "“Be where your feet are.”",
             "“Move through today with intention.”",
@@ -165,7 +165,6 @@
             "“You are allowed to take your time.”"
         ];
 
-        // Hourly Messages Map
         const hourlyMessages = {
             0: "“The day is over. Nothing needs to be solved right now. Rest.”",
             1: "“Let tomorrow belong to tomorrow. For now, simply be here.”",
@@ -199,83 +198,44 @@
             const minutes = now.getMinutes();
             const seconds = now.getSeconds();
 
-            // 1. Real-time Date format (e.g. Tuesday · August 11)
+            // Date & Clock formatting
             const optionsDate = { weekday: 'long', month: 'long', day: 'numeric' };
-            document.getElementById('datetimeDisplay').innerText = now.toLocaleDateString('en-US', optionsDate).replace(',', ' ·');
-
-            // 2. Real-time 12-hour Clock format (e.g. 8:42 PM)
+            const dateStr = now.toLocaleDateString('en-US', optionsDate).replace(',', ' ·');
+            
             let h = hours;
             const ampm = h >= 12 ? 'PM' : 'AM';
             h = h % 12;
             h = h ? h : 12;
             const m = minutes < 10 ? '0' + minutes : minutes;
-            document.getElementById('timeDisplay').innerText = `${h}:${m} ${ampm}`;
-
-            // 3. Hourly Message
+            
+            document.getElementById('datetimeDisplay').innerText = `${dateStr} · ${h}:${m} ${ampm}`;
             document.getElementById('hourlyMessage').innerText = hourlyMessages[hours];
 
-            // 4. Time Period & Badge
+            // Time Period
             let periodText = "";
-            let atmosphericTheme = "";
-
-            if (hours >= 5 && hours < 7) {
-                periodText = "🌅 Early Morning";
-                atmosphericTheme = "theme-early-morning";
-            } else if (hours >= 7 && hours < 10) {
-                periodText = "☀️ Morning";
-                atmosphericTheme = "theme-morning";
-            } else if (hours >= 10 && hours < 13) {
-                periodText = "☀️ Day";
-                atmosphericTheme = "theme-day";
-            } else if (hours >= 13 && hours < 15) {
-                periodText = "🌤️ Afternoon";
-                atmosphericTheme = "theme-afternoon";
-            } else if (hours >= 15 && hours < 17) {
-                periodText = "🌤️ Late Afternoon";
-                atmosphericTheme = "theme-afternoon";
-            } else if (hours >= 17 && hours < 19) {
-                periodText = "🌅 Golden Hour";
-                atmosphericTheme = "theme-golden-hour";
-            } else if (hours >= 19 && hours < 22) {
-                periodText = "🌙 Evening";
-                atmosphericTheme = "theme-evening";
-            } else if (hours >= 22 && hours < 24) {
-                periodText = "🌙 Wind Down";
-                atmosphericTheme = "theme-wind-down";
-            } else {
-                periodText = "🌌 Night";
-                atmosphericTheme = "theme-night";
-            }
+            if (hours >= 5 && hours < 7) periodText = "🌅 Early Morning";
+            else if (hours >= 7 && hours < 10) periodText = "☀️ Morning";
+            else if (hours >= 10 && hours < 13) periodText = "☀️ Day";
+            else if (hours >= 13 && hours < 15) periodText = "🌤️ Afternoon";
+            else if (hours >= 15 && hours < 17) periodText = "🌤️ Late Afternoon";
+            else if (hours >= 17 && hours < 19) periodText = "🌅 Golden Hour";
+            else if (hours >= 19 && hours < 22) periodText = "🌙 Evening";
+            else if (hours >= 22 && hours < 24) periodText = "🌙 Wind Down";
+            else periodText = "🌌 Night";
+            
             document.getElementById('timePeriodBadge').innerText = periodText;
-            document.getElementById('widgetBox').className = `widget-box ${atmosphericTheme}`;
 
-            // 5. Sun -> Moon Progression Calculation (0% to 100% across 24 hours)
+            // Sun -> Moon Progression Position
             const totalSecondsToday = (hours * 3600) + (minutes * 60) + seconds;
             const percentProgress = (totalSecondsToday / 86400) * 100;
-            document.getElementById('progressionFill').style.width = `${percentProgress}%`;
-            
-            const thumb = document.getElementById('progressionThumb');
-            thumb.style.left = `${percentProgress}%`;
-
-            // Change icon dynamically based on time of day
-            if (hours >= 6 && hours < 9) {
-                thumb.innerText = "🌅";
-            } else if (hours >= 9 && hours < 17) {
-                thumb.innerText = "☀️";
-            } else if (hours >= 17 && hours < 20) {
-                thumb.innerText = "🌇";
-            } else {
-                thumb.innerText = "🌙";
-            }
+            document.getElementById('progressionThumb').style.left = `${percentProgress}%`;
         }
 
-        // Shuffle Intention Button Function
         function shuffleIntention() {
             const randomIndex = Math.floor(Math.random() * intentions.length);
             document.getElementById('intentionText').innerText = intentions[randomIndex];
         }
 
-        // Run immediately and update every second for live clock accuracy
         updateWidget();
         setInterval(updateWidget, 1000);
     </script>
