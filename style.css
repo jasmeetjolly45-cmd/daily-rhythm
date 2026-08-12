@@ -34,10 +34,9 @@ html, body {
     background-position: center;
     background-repeat: no-repeat;
     width: 90vw;
-    max-width: 680px;
-    aspect-ratio: 680 / 480;
-    padding: 24px 60px; 
-    border-radius: 0px; 
+    max-width: 720px;
+    aspect-ratio: 720 / 600;
+    padding: 24px; 
     box-shadow: 0 14px 40px rgba(0, 0, 0, 0.45);
     display: flex;
     justify-content: center;
@@ -45,13 +44,13 @@ html, body {
 }
 
 /* ==========================
-   WIDGET DASHBOARD BOX
+   WIDGET DASHBOARD BOX (Exact 40px Padding)
 ========================== */
 .widget-box {
     background-color: #10281b; 
     width: 100%;
     height: 100%;
-    padding: 16px 26px;
+    padding: 40px;
     border-radius: 22px; 
     color: #f8f4ec;
     border: 1px solid rgba(255, 255, 255, 0.08);
@@ -69,19 +68,18 @@ html, body {
     display: flex;
     flex-direction: column;
     align-items: center;
-    gap: 1px;
     width: 100%;
 }
 
 .top-sprig {
     font-size: 13px;
     opacity: 0.85;
-    margin-bottom: -2px;
+    margin-bottom: 2px;
 }
 
 .widget-title {
     font-family: 'Cormorant Garamond', serif;
-    font-size: 30px;
+    font-size: 32px;
     font-weight: 600;
     letter-spacing: 2px;
     color: #f8f4ec;
@@ -90,37 +88,56 @@ html, body {
 
 .datetime-display {
     font-family: 'Cormorant Garamond', serif;
-    font-size: 15px;
+    font-size: 16px;
     font-weight: 500;
     letter-spacing: 1px;
     color: #f8f4ec;
     opacity: 0.85;
+    margin-top: 8px;
 }
 
 .time-display-bold {
     font-family: 'Cormorant Garamond', serif;
-    font-size: 24px; /* Larger time display */
+    font-size: 64px;
     font-weight: 700;
     letter-spacing: 1.5px;
     color: #f8f4ec;
-    margin-top: 2px;
+    line-height: 1.05;
+    margin-top: 8px;
+}
+
+.time-period-badge {
+    font-size: 16px;
+    font-weight: 600;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    color: #f8f4ec;
+    opacity: 0.9;
+    margin-top: 20px;
 }
 
 /* ==========================
-   CURVED SUN -> MOON PROGRESSION
+   PROGRESSION BLOCK (Sun-Moon & Hourly Message)
 ========================== */
+.progression-block {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 100%;
+    margin-top: 20px;
+}
+
 .progression-container {
     display: flex;
     align-items: center;
     justify-content: center;
-    gap: 10px;
+    gap: 12px;
     width: 100%;
-    padding: 0 4px;
 }
 
 .progression-icon {
-    font-size: 13px;
-    opacity: 0.8;
+    font-size: 14px;
+    opacity: 0.85;
 }
 
 .progression-track-wrapper {
@@ -141,23 +158,56 @@ html, body {
     position: absolute;
     top: 50%;
     transform: translate(-50%, -50%);
-    width: 8px;
-    height: 8px;
+    width: 9px;
+    height: 9px;
     background: #f8f4ec;
     border-radius: 50%;
     box-shadow: 0 0 6px rgba(248, 244, 236, 0.8);
     transition: left 0.5s ease;
 }
 
+.hourly-message {
+    font-family: 'Cormorant Garamond', serif;
+    font-style: italic;
+    font-size: 18px;
+    line-height: 1.2;
+    color: #f8f4ec;
+    opacity: 0.85;
+    margin-top: 24px;
+}
+
 /* ==========================
-   TODAY'S INTENTION & BOXED BUTTON (Larger)
+   ORNAMENT DIVIDER (32px gap above)
+========================== */
+.ornament-row {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 12px;
+    width: 100%;
+    margin-top: 32px;
+}
+
+.ornament-row .line {
+    flex: 1;
+    height: 1px;
+    background: rgba(248, 244, 236, 0.2);
+}
+
+.ornament-row .leaf {
+    font-size: 12px;
+    opacity: 0.75;
+}
+
+/* ==========================
+   TODAY'S INTENTION SECTION (24px gap below leaf)
 ========================== */
 .intention-section {
     display: flex;
     flex-direction: column;
     align-items: center;
     width: 100%;
-    gap: 4px;
+    margin-top: 24px;
 }
 
 .intention-label {
@@ -172,107 +222,87 @@ html, body {
 .intention-text {
     font-family: 'Cormorant Garamond', serif;
     font-style: italic;
-    font-size: 19px; /* Larger intention quote */
+    font-size: 20px;
     font-weight: 500;
     color: #f8f4ec;
     line-height: 1.2;
+    margin-top: 8px;
 }
 
 .shuffle-btn {
     background: transparent;
-    border: 1px solid rgba(248, 244, 236, 0.25);
+    border: 1px solid rgba(248, 244, 236, 0.3);
     font-family: 'Plus Jakarta Sans', sans-serif;
-    font-size: 9px;
+    font-size: 14px;
     font-weight: 600;
     letter-spacing: 1.5px;
     text-transform: uppercase;
     color: #f8f4ec;
-    opacity: 0.85;
-    padding: 4px 14px;
+    height: 36px;
+    padding: 0 18px;
     border-radius: 20px;
     cursor: pointer;
-    margin-top: 2px;
+    margin-top: 16px;
     transition: all 0.2s ease;
 }
 
 .shuffle-btn:hover {
     opacity: 1;
     background: rgba(248, 244, 236, 0.1);
-    border-color: rgba(248, 244, 236, 0.4);
+    border-color: rgba(248, 244, 236, 0.5);
 }
 
 /* ==========================
-   ORNAMENT DIVIDER
+   RESPONSIVE MOBILE SCALING (Fixes Overflows)
 ========================== */
-.ornament-row {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    gap: 12px;
-    width: 100%;
-}
-
-.ornament-row .line {
-    flex: 1;
-    height: 1px;
-    background: rgba(248, 244, 236, 0.2);
-}
-
-.ornament-row .leaf {
-    font-size: 11px;
-    opacity: 0.75;
-}
-
-/* ==========================
-   BOTTOM INFO SECTION (Tucked right below the leaf)
-========================== */
-.bottom-info-section {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    gap: 3px;
-    width: 100%;
-}
-
-.time-period-badge {
-    font-size: 10px;
-    font-weight: 500;
-    letter-spacing: 2px;
-    text-transform: uppercase;
-    background: rgba(248, 244, 236, 0.08);
-    padding: 3px 10px;
-    border-radius: 20px;
-    color: #f8f4ec;
-    opacity: 0.85;
-}
-
-.hourly-message {
-    font-family: 'Cormorant Garamond', serif;
-    font-style: italic;
-    font-size: 14px;
-    line-height: 1.2;
-    color: #f8f4ec;
-    opacity: 0.85;
-    max-width: 440px;
-}
-
-/* ==========================
-   RESPONSIVE SCALING FOR MOBILE
-========================== */
-@media (max-width: 480px) {
+@media (max-width: 600px) {
     .card-frame {
-        padding: 16px 20px;
+        width: 96vw;
+        padding: 12px;
     }
     .widget-box {
-        padding: 14px 14px;
+        padding: 16px 14px;
+        justify-content: space-between;
     }
     .widget-title {
-        font-size: 26px;
+        font-size: 22px;
+    }
+    .datetime-display {
+        font-size: 13px;
+        margin-top: 4px;
+    }
+    .time-display-bold {
+        font-size: 38px;
+        margin-top: 4px;
+    }
+    .time-period-badge {
+        font-size: 11px;
+        margin-top: 8px;
+    }
+    .progression-block {
+        margin-top: 10px;
     }
     .hourly-message {
-        font-size: 12px;
+        font-size: 13px;
+        margin-top: 10px;
+    }
+    .ornament-row {
+        margin-top: 12px;
+    }
+    .intention-section {
+        margin-top: 10px;
+    }
+    .intention-label {
+        font-size: 9px;
     }
     .intention-text {
-        font-size: 16px;
+        font-size: 15px;
+        margin-top: 4px;
+    }
+    .shuffle-btn {
+        height: 30px;
+        font-size: 11px;
+        padding: 0 12px;
+        margin-top: 8px;
     }
 }
