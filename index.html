@@ -9,7 +9,7 @@
 </head>
 <body id="bodyTheme">
 
-    <!-- Framed Background Container -->
+    <!-- Framed Background Container (Matches reference proportion with visible border) -->
     <div class="card-frame">
         
         <!-- Inner Wellness Dashboard Widget -->
@@ -20,7 +20,7 @@
                 <div class="top-sprig">🌿</div>
                 <div class="widget-title">Daily Rhythm</div>
                 <div class="datetime-display" id="datetimeDisplay">Wednesday · August 12</div>
-                <div class="time-display-bold" id="timeDisplay">6:27 PM</div>
+                <div class="time-display-bold" id="timeDisplay">6:39 PM</div>
                 <div class="time-period-badge" id="timePeriodBadge">
                     🌅 GOLDEN HOUR
                 </div>
@@ -51,7 +51,7 @@
             <!-- Bottom Section: Today's Intention & Button -->
             <div class="intention-section">
                 <div class="intention-label">TODAY'S INTENTION</div>
-                <div class="intention-text" id="intentionText">“Be where your feet are.”</div>
+                <div class="intention-text" id="intentionText">“Leave some room for spontaneity.”</div>
                 <button class="shuffle-btn" id="shuffleBtn" onclick="shuffleIntention()">
                     ↻ NEW INTENTION
                 </button>
@@ -62,7 +62,7 @@
 
     <script>
         const intentions = [
-            "“Be where your feet are.”",
+            "“Leave some room for spontaneity.”",
             "“Move through today with intention.”",
             "“Choose presence over pressure.”",
             "“Let today unfold one moment at a time.”",
@@ -197,11 +197,9 @@
             const minutes = now.getMinutes();
             const seconds = now.getSeconds();
 
-            // Day & Date formatting
             const optionsDate = { weekday: 'long', month: 'long', day: 'numeric' };
             document.getElementById('datetimeDisplay').innerText = now.toLocaleDateString('en-US', optionsDate).replace(',', ' ·');
             
-            // Bold Time format (64px target)
             let h = hours;
             const ampm = h >= 12 ? 'PM' : 'AM';
             h = h % 12;
@@ -209,10 +207,8 @@
             const m = minutes < 10 ? '0' + minutes : minutes;
             document.getElementById('timeDisplay').innerText = `${h}:${m} ${ampm}`;
 
-            // Hourly Message
             document.getElementById('hourlyMessage').innerText = hourlyMessages[hours];
 
-            // Time Period
             let periodText = "";
             if (hours >= 5 && hours < 7) periodText = "🌅 EARLY MORNING";
             else if (hours >= 7 && hours < 10) periodText = "☀️ MORNING";
@@ -226,7 +222,6 @@
             
             document.getElementById('timePeriodBadge').innerText = periodText;
 
-            // Sun -> Moon Progression Position
             const totalSecondsToday = (hours * 3600) + (minutes * 60) + seconds;
             const percentProgress = (totalSecondsToday / 86400) * 100;
             document.getElementById('progressionThumb').style.left = `${percentProgress}%`;
